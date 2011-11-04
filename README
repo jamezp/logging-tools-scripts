@@ -1,1 +1,8 @@
-This file was created by IntelliJ IDEA 10.5.2 for binding GitHub repository
+Simple python scripts for helping with logging tools tasks.
+
+MessageChecker: A very crude check of source files to see if there is any plain text or exceptions being thrown that
+                could need i18n translations.
+
+MessageIdGenerator: This simply updates a source file and adds id's to any line that starts with "@Message(v". If the
+                    line starts with that text the next sequential line, based on the -id passed in, is added to the
+                    line.

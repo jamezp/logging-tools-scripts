@@ -47,6 +47,7 @@ def generateIds(filename, i):
     # Move new file
     move(temp_path, filename)
 
+# Parse the incoming parameters
 parser = argparse.ArgumentParser(description="Generate message id's")
 parser.add_argument("-f", "--file", metavar="FILE", type=str, dest="filename", help="The file to generate the id's for.")
 parser.add_argument("-id", metavar="N", type=int, dest="i", help="The starting id.")

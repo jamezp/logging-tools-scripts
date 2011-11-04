@@ -31,11 +31,15 @@ def processFile(file):
     lines = []
     for line in current:
         trimmedLine = line.strip()
+        # Skip comments
         if trimmedLine.startswith("//") == False and trimmedLine.startswith("*") == False:
+            # Check for exceptions being thrown.
             if trimmedLine.find("throw new") != -1 and search('"[^"\\\r\n]*(?:\\.[^"\\\r\n]*)*"', trimmedLine) != None:
                 lines.append(trimmedLine)
+            # Check for text that has at least one space.
             if trimmedLine.startswith("@Message") == False and search('"[^"\\\r\n]*\w\s.*(?:\\.[^"\\\r\n]*)*"', trimmedLine) != None:
                 lines.append(trimmedLine)
+    # Check to see if lines were found and print
     if len(lines) > 0:
         print(str(file) + ":")
         for line in lines:
@@ -51,17 +55,14 @@ def processDir(dir):
         elif path.isdir(file_path):
             processDir(file_path)
 
+# Parse the incoming parameters
 parser = argparse.ArgumentParser(description="Check messages")
 parser.add_argument("-f", "--file", metavar="FILE", type=str, dest="filename", help="The file or directory to scan messages for.")
-
 args = parser.parse_args()
 
 if not path.exists(args.filename):
     raise Exception("File '" + args.filename + "' not found.")
 
-
-#filename = "/home/jperkins/projects/jboss-as/controller/src/main/java"
-#filename = "/home/jperkins/projects/jboss-as/controller/src/main/java/org/jboss/as/controller/parsing/CommonXml.java"
 if path.isdir(args.filename):
     processDir(args.filename)
 elif path.isfile(args.filename):
